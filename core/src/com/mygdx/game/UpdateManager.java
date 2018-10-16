@@ -1,17 +1,28 @@
 package com.mygdx.game;
 
+import com.mygdx.collisions.CollisionManager;
 import com.mygdx.levels.MyLevel;
 import com.mygdx.players.Player;
 import com.mygdx.managers.PlayerInputManager;
 
 public class UpdateManager {
 
+    private CollisionManager collisionManager;
 
     public UpdateManager() {
-
+        collisionManager = new CollisionManager();
     }
 
-    public void update(MyLevel level, Player[] players){
+    public void update(MyLevel level, Player[] players) {
+
+//        for(Player player : players) {
+//            collisionManager.getNewUserToWorldCollisionRectangles(
+//                    level.getRectangles(),
+//                    player.getSprite().getRectangle(),
+//                    player.getSprite().getXVel(),
+//                    player.getSprite().getYVel()
+//            );
+//        }
 
 
         // TODO - all the updates for players / levels

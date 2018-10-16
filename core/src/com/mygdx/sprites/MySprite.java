@@ -1,10 +1,14 @@
 package com.mygdx.sprites;
 
 
+import com.badlogic.gdx.math.Rectangle;
+
 public class MySprite {
 
     // TODO sprite x, y
     // exp - collision rect, sprite rect
+
+    protected Rectangle rectangle;
 
     protected int xPos;
     protected int yPos;
@@ -17,6 +21,10 @@ public class MySprite {
     protected int spriteDrawY;
     protected int spriteDrawWidth;
     protected int spriteDrawHeight;
+
+    public Rectangle getRectangle(){
+        return rectangle;
+    }
 
     public int getXPos() {
         return xPos;

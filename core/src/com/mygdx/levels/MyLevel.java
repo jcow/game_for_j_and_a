@@ -1,9 +1,14 @@
 package com.mygdx.levels;
 
-import com.mygdx.sprites.MyTile;
+import com.badlogic.gdx.math.Rectangle;
+
+import java.util.List;
 
 public class MyLevel {
 
-    protected MyTile[] tiles;
+    List<Rectangle> levelCollidables;
 
+    public List<Rectangle> getLevelCollidables(){
+        return levelCollidables;
+    };
 }

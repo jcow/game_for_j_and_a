@@ -1,20 +1,20 @@
 package com.mygdx.util;
 
-public class Pair<T> {
+public class Pair<A, B> {
 
-    private T first;
-    private T second;
+    private A first;
+    private B second;
 
-    Pair(T first, T second) {
+    public Pair(A first, B second) {
         this.first = first;
         this.second = second;
     }
 
-    public T getFirst() {
+    public A getFirst() {
         return first;
     }
 
-    public T getSecond() {
+    public B getSecond() {
         return second;
     }
 }
