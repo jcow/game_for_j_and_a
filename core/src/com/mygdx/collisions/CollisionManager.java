@@ -1,16 +1,33 @@
 package com.mygdx.collisions;
 
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.util.Pair;
-import org.w3c.dom.css.Rect;
 
 import java.util.List;
 
+/**
+ * My "amazing" collision manager
+ * http://www.coding-daddy.xyz/node/29
+ */
 public class CollisionManager {
 
-    public Rectangle getNewUserToWorldCollisionRectangles(List<Rectangle> worldCollidables, Rectangle userRectangle, int stepX, int stepY) {
+    private GeometricCollisions geometricCollisions;
 
+    public CollisionManager() {
+        this.geometricCollisions = new GeometricCollisions();
+    }
+
+    public boolean doesIntersect(Rectangle rectangle, Circle projectile) {
+        return geometricCollisions.collides(rectangle, projectile);
+    }
+
+    public boolean doesIntersect(Rectangle rectangle1, Rectangle rectangle2) {
+        return geometricCollisions.collides(rectangle1, rectangle2);
+    }
+
+    public Rectangle getNewUserToWorldCollisionRectangles(List<Rectangle> worldCollidables, Rectangle userRectangle, int stepX, int stepY) {
         Pair<Rectangle, Rectangle> closestXY = getClosestXandYCollidables(worldCollidables, userRectangle, stepX, stepY);
 
         return getNewXY(closestXY, userRectangle, stepX, stepY);
@@ -64,7 +81,7 @@ public class CollisionManager {
         Rectangle closestCollidingY = null;
 
         for(Rectangle rectangle : worldCollidables) {
-            if(isColliding(rectangle, newUserRectangleX)) {
+            if(geometricCollisions.collides(rectangle, newUserRectangleX)) {
                 float distance = getDistance(getCenter(rectangle).x, getCenter(newUserRectangleX).x);
                 if(distance < closestDistanceX) {
                     closestDistanceX = distance;
@@ -72,7 +89,7 @@ public class CollisionManager {
                 }
             }
 
-            if(isColliding(rectangle, newUserRectangleY)) {
+            if(geometricCollisions.collides(rectangle, newUserRectangleY)) {
                 float distance = getDistance(getCenter(rectangle).y, getCenter(newUserRectangleX).y);
                 if(distance < closestDistanceY) {
                     closestDistanceY = distance;
@@ -127,17 +144,7 @@ public class CollisionManager {
         );
     }
 
-    public boolean isColliding(Rectangle rectangle1, Rectangle rectangle2) {
-        if(rectangle1.x < rectangle2.x + rectangle2.width &&
-                rectangle1.x + rectangle1.width > rectangle2.x &&
-                rectangle1.y < rectangle2.y + rectangle2.height &&
-                rectangle1.y + rectangle1.height > rectangle2.y)
-        {
-            return true;
-        }
 
-        return false;
-    }
 
     private float getDistance(float a, float b) {
         return Math.abs(a - b);
@@ -147,7 +154,5 @@ public class CollisionManager {
         Vector2 vector2 = new Vector2();
         return rectangle.getCenter(vector2);
     }
-
-
 
 }

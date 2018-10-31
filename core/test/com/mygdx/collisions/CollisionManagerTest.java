@@ -46,7 +46,7 @@ public class CollisionManagerTest {
         worldCollidables.add(new Rectangle(40, 40, width, height));
 
         Rectangle userRectangle = new Rectangle(25, 25, width, height);
-        
+
         List<Pair<Integer, Integer>> steps = new ArrayList();
         steps.add(new Pair<Integer, Integer>(-7, 0));
         steps.add(new Pair<Integer, Integer>(-7, -7));

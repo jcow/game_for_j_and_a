@@ -19,9 +19,7 @@ public class PlayerInputManager {
         return instance;
     }
 
-    public PlayerInputManager() {
-
-    }
+    private PlayerInputManager() {}
 
     public void step() {
         steps++;

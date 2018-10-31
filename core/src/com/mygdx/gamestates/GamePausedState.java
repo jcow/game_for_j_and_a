@@ -22,14 +22,11 @@ public class GamePausedState implements GameStates {
 
     public String newState() {
         // todo - maybe have a player manager...
-        if(getPlayerInputManager().isActionPressed(PlayerID.PLAYER_1)){
+        if(PlayerInputManager.getInstance().isActionPressed(PlayerID.PLAYER_1)){
             return GamePlayingState.class.getName();
         }
 
         return null;
     }
 
-    private PlayerInputManager getPlayerInputManager(){
-        return PlayerInputManager.getInstance();
-    }
 }
