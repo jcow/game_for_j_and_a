@@ -10,7 +10,7 @@ import com.mygdx.players.PlayerID;
 
 public class GamePausedState implements GameStates {
 
-    public void render(Texture background, Texture sprites, SpriteBatch batch, BitmapFont font) {
+    public void render(GameAssetsContainer gameAssetsContainer) {
 
         Gdx.gl.glClearColor(1, 1, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

@@ -1,8 +1,5 @@
 package com.mygdx.levels;
 
-public class Level1 {
+public class Level1 extends MyLevel{
 
-    public Level1() {
-
-    }
 }

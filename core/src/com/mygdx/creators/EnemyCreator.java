@@ -1,7 +1,6 @@
 package com.mygdx.creators;
 
 import com.mygdx.enemies.Enemy;
-import com.mygdx.sprites.MySprite;
 
 public class EnemyCreator {
 

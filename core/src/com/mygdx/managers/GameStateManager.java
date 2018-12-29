@@ -3,6 +3,7 @@ package com.mygdx.managers;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.gamestates.GameAssetsContainer;
 import com.mygdx.gamestates.GamePausedState;
 import com.mygdx.gamestates.GamePlayingState;
 import com.mygdx.gamestates.GameStates;
@@ -32,8 +33,8 @@ public class GameStateManager {
         gameStatesHashMap.put(gamePausedState.getID(), gamePausedState);
     }
 
-    public void render(Texture background, Texture sprites, SpriteBatch batch, BitmapFont font) throws Exception {
-        currentGameState.render(background, sprites, batch, font);
+    public void render(GameAssetsContainer gameAssetsContainer) throws Exception {
+        currentGameState.render(gameAssetsContainer);
 
         String newState = currentGameState.newState();
 

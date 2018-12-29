@@ -2,43 +2,64 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.gamestates.GameAssetsContainer;
 import com.mygdx.managers.GameStateManager;
 import com.mygdx.managers.PlayerInputManager;
+import com.mygdx.players.Player;
+import com.mygdx.players.PlayerID;
 
 public class MyGdxGame extends ApplicationAdapter {
 
-
+	GameAssetsContainer gameAssetsContainer;
 	GameStateManager gameStateManager;
 
     private SpriteBatch batch;
     private Texture background;
     private Texture sprites;
     private BitmapFont font;
+    Viewport viewport;
+    Camera camera;
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		font = new BitmapFont();
-		sprites = new Texture("badlogic.jpg");
+
 		gameStateManager = new GameStateManager();
+		gameAssetsContainer = new GameAssetsContainer();
+
+        sprites = new Texture("mainmenu.png");
+        batch = new SpriteBatch();
 	}
 
 	@Override
 	public void render () {
+
+	    // Test block
 //		Gdx.gl.glClearColor(1, 0, 0, 1);
 //		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		batch.begin();
-//		batch.draw(img, 0, 0);
+//		batch.draw(sprites, 0, 0);
 //		batch.end();
+//
+//
+//
+//		PlayerInputManager.getInstance().step();
+//
+//        if(PlayerInputManager.getInstance().isCancelledPressed(PlayerID.PLAYER_1)) {
+//            Gdx.app.exit();
+//        }
 
-		PlayerInputManager.getInstance().step();
+
 
         try {
-            gameStateManager.render(background, sprites, batch, font);
+            gameStateManager.render(gameAssetsContainer);
         } catch (Exception e) {
             // TODO
         }
@@ -46,8 +67,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		//img.dispose();
-        font.dispose();
+		gameAssetsContainer.dispose();
 	}
 }

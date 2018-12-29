@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public interface GameStates {
 
-    void render(Texture background, Texture sprites, SpriteBatch batch, BitmapFont font);
+    void render(GameAssetsContainer gameAssetsContainer);
 
     String newState();
 

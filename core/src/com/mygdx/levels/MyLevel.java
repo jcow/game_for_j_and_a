@@ -3,45 +3,18 @@ package com.mygdx.levels;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.util.Pair;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public enum MyLevel {
+public class MyLevel {
 
-    LEVEL_1(
-            1,
-            new Pair<Integer, Integer>(100, 100),
-            new ArrayList<Pair<Integer, Integer>>() {{
-                add(new Pair(1, 1));
-            }},
-            new Pair(1000, 1000),
-            new ArrayList<Rectangle>() {{
-                add(new Rectangle(0, 0, 10 ,10));
-            }}
-    );
+    private int levelNumber;
+    private Pair<Integer, Integer> playerSpawn;
+    private List<Pair<Integer, Integer>> enemySpawns;
+    private Pair<Integer, Integer> levelExit;
+    private List<Rectangle> collidables;
 
-    int identifier;
-    Pair<Integer, Integer> playerSpawn;
-    List<Pair<Integer, Integer>> enemySpawns;
-    Pair<Integer, Integer> levelExit;
-    List<Rectangle> collidables;
-
-    MyLevel(
-        int identifier,
-        Pair<Integer, Integer> playerSpawn,
-        List<Pair<Integer, Integer>> enemySpawns,
-        Pair<Integer, Integer> levelExit,
-        List<Rectangle> collidables
-    ) {
-        this.identifier = identifier;
-        this.playerSpawn = playerSpawn;
-        this.enemySpawns = enemySpawns;
-        this.levelExit = levelExit;
-        this.collidables = collidables;
-    }
-
-    public int getIdentifier() {
-        return identifier;
+    public int getLevelNumber() {
+        return levelNumber;
     }
 
     public Pair<Integer, Integer> getPlayerSpawn() {
@@ -60,9 +33,24 @@ public enum MyLevel {
         return collidables;
     }
 
-    public static List<MyLevel> getLevels() {
-        List<MyLevel> levels = new ArrayList<MyLevel>();
-        levels.add(LEVEL_1);
-        return levels;
+    public void setLevelNumber(int levelNumber) {
+        this.levelNumber = levelNumber;
     }
+
+    public void setPlayerSpawn(Pair<Integer, Integer> playerSpawn) {
+        this.playerSpawn = playerSpawn;
+    }
+
+    public void setEnemySpawns(List<Pair<Integer, Integer>> enemySpawns) {
+        this.enemySpawns = enemySpawns;
+    }
+
+    public void setLevelExit(Pair<Integer, Integer> levelExit) {
+        this.levelExit = levelExit;
+    }
+
+    public void setCollidables(List<Rectangle> collidables) {
+        this.collidables = collidables;
+    }
+
 }

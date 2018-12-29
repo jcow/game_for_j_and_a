@@ -84,6 +84,14 @@ public class PlayerInputManager {
         return false;
     }
 
+    public boolean isQuitGamePressed() {
+        if(Gdx.input.isKeyPressed(Input.Keys.Q) && Gdx.input.isKeyPressed(Input.Keys.P)) {
+            return true;
+        }
+
+        return false;
+    }
+
     private boolean tryDoAction(){
         if(steps >= stepDelay) {
             steps = 0;
