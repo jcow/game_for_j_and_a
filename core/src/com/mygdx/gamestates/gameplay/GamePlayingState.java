@@ -1,10 +1,13 @@
-package com.mygdx.gamestates;
+package com.mygdx.gamestates.gameplay;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.mygdx.assets.GameAssetsContainer;
 import com.mygdx.config.TextureDefinition;
 import com.mygdx.creators.PlayerCreator;
 import com.mygdx.game.UpdateManager;
+import com.mygdx.gamestates.GameStateMaster;
+import com.mygdx.gamestates.GameStatesEnum;
 import com.mygdx.levels.LevelBuilder;
 import com.mygdx.levels.MyLevel;
 import com.mygdx.managers.PlayerInputManager;
@@ -38,6 +41,7 @@ public class GamePlayingState extends GameStateMaster {
         players[0] = player1;
     }
 
+    @Override
     public void render(GameAssetsContainer gameAssetsContainer) {
 
         super.render(gameAssetsContainer);
@@ -63,14 +67,11 @@ public class GamePlayingState extends GameStateMaster {
 
     }
 
-    public String getID(){
-        return GamePlayingState.class.getName();
-    }
+    @Override
+    public GameStatesEnum nextState() {
 
-    public String newState() {
-        // TODO
         if(PlayerInputManager.getInstance().isCancelledPressed(PlayerID.PLAYER_1)){
-            return GamePausedState.class.getName();
+            return GameStatesEnum.GAME_PAUSED;
         }
 
         return null;

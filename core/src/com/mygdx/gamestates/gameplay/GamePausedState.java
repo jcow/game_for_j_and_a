@@ -1,14 +1,14 @@
-package com.mygdx.gamestates;
+package com.mygdx.gamestates.gameplay;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.assets.GameAssetsContainer;
+import com.mygdx.gamestates.GameState;
+import com.mygdx.gamestates.GameStatesEnum;
 import com.mygdx.managers.PlayerInputManager;
 import com.mygdx.players.PlayerID;
 
-public class GamePausedState implements GameStates {
+public class GamePausedState implements GameState {
 
     public void render(GameAssetsContainer gameAssetsContainer) {
 
@@ -20,10 +20,10 @@ public class GamePausedState implements GameStates {
         return GamePausedState.class.getName();
     }
 
-    public String newState() {
-        // todo - maybe have a player manager...
+    public GameStatesEnum nextState() {
+
         if(PlayerInputManager.getInstance().isActionPressed(PlayerID.PLAYER_1)){
-            return GamePlayingState.class.getName();
+            return GameStatesEnum.GAME_PLAYING;
         }
 
         return null;

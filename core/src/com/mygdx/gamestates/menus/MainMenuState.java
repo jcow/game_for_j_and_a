@@ -1,8 +1,12 @@
-package com.mygdx.gamestates;
+package com.mygdx.gamestates.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.mygdx.assets.GameAssetsContainer;
 import com.mygdx.config.TextureDefinition;
+import com.mygdx.gamestates.GameStateMaster;
+import com.mygdx.gamestates.GameStatesEnum;
+import com.mygdx.gamestates.gameplay.GamePlayingState;
 import com.mygdx.managers.PlayerInputManager;
 import com.mygdx.menus.MainMenuMenu;
 import com.mygdx.menus.MenuOptions;
@@ -70,11 +74,10 @@ public class MainMenuState extends GameStateMaster {
         return MainMenuState.class.getName();
     }
 
-    public String newState() {
+    public GameStatesEnum nextState() {
         if(mainMenuMenu.getCurrentOption() == MenuOptions.START_GAME && getPlayerInputManager().isActionPressed(PlayerID.PLAYER_1)) {
-            return GamePlayingState.class.getName();
+            return GameStatesEnum.GAME_PLAYING;
         }
-        // TODO quit game
 
         return null;
     }
