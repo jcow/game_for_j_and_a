@@ -1,7 +1,9 @@
 package com.mygdx.gamestates.menus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mygdx.assets.GameAssetsContainer;
 import com.mygdx.config.TextureDefinition;
 import com.mygdx.gamestates.GameStateMaster;

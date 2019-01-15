@@ -128,3 +128,4 @@ gradle.properties
 gradle/
 gradlew
 gradlew.bat
+core/out/*
