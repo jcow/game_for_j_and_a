@@ -1,18 +1,17 @@
 package com.mygdx.gamestates;
 
-import com.mygdx.gamestates.gameplay.GamePausedState;
 import com.mygdx.gamestates.gameplay.GamePlayingState;
+import com.mygdx.gamestates.gameplay.Level1State;
 import com.mygdx.gamestates.gameplay.OverworldState;
-import com.mygdx.gamestates.loaders.GameLoadingState;
 import com.mygdx.gamestates.menus.MainMenuState;
 
 public enum GameStatesEnum {
 
     MAIN_MENU(new MainMenuState()),
-    GAME_LOADING(new GameLoadingState()),
     OVERWORLD(new OverworldState()),
     GAME_PLAYING(new GamePlayingState()),
-    GAME_PAUSED(new GamePausedState());
+
+    LEVEL_1(new Level1State());
 
     private GameState gameState;
 

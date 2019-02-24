@@ -9,19 +9,24 @@ public class GameStateManager {
     GameState currentGameState;
 
     public GameStateManager() {
-        currentGameState = GameStatesEnum.MAIN_MENU.getGameState();
+        setCurrentGameState(GameStatesEnum.MAIN_MENU);
     }
 
-    public void render(GameAssetsContainer gameAssetsContainer) {
-        currentGameState.render(gameAssetsContainer);
+    public void render() {
+        currentGameState.render();
 
-        GameStatesEnum newEnum = currentGameState.nextState();
+        GameStatesEnum newGameState = currentGameState.nextState();
 
-        if(newEnum != null) {
-            currentGameState = newEnum.getGameState();
+        if (newGameState != null) {
+            setCurrentGameState(newGameState);
         }
 
         PlayerInputManager.getInstance().step();
+    }
+
+    protected void setCurrentGameState(GameStatesEnum gameStatesEnum) {
+        currentGameState = gameStatesEnum.getGameState();
+        currentGameState.load();
     }
 
 }

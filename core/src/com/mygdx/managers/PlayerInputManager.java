@@ -25,6 +25,10 @@ public class PlayerInputManager {
         steps++;
     }
 
+    public void resetStepDelay() {
+        setStepDelay(0);
+    }
+
     public void setStepDelay(int stepDelay) {
         this.stepDelay = stepDelay;
     }

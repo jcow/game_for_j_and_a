@@ -11,7 +11,6 @@ import com.mygdx.managers.GameStateManager;
 
 public class MyGdxGame extends ApplicationAdapter {
 
-	GameAssetsContainer gameAssetsContainer;
 	GameStateManager gameStateManager;
 
     private SpriteBatch batch;
@@ -25,7 +24,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void create () {
 
 		gameStateManager = new GameStateManager();
-		gameAssetsContainer = new GameAssetsContainer();
 
         sprites = new Texture("mainmenu.png");
         batch = new SpriteBatch();
@@ -52,7 +50,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
         try {
-            gameStateManager.render(gameAssetsContainer);
+            gameStateManager.render();
         } catch (Exception e) {
             // TODO
         }
@@ -60,6 +58,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
-		gameAssetsContainer.dispose();
+		GameAssetsContainer.getInstance().dispose();
 	}
 }

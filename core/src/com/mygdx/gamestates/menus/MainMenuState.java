@@ -1,42 +1,51 @@
 package com.mygdx.gamestates.menus;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.mygdx.assets.AssetConfiguration;
 import com.mygdx.assets.GameAssetsContainer;
-import com.mygdx.config.TextureDefinition;
+import com.mygdx.assets.TextureDefinition;
 import com.mygdx.gamestates.GameStateMaster;
 import com.mygdx.gamestates.GameStatesEnum;
-import com.mygdx.gamestates.gameplay.GamePlayingState;
 import com.mygdx.managers.PlayerInputManager;
 import com.mygdx.menus.MainMenuMenu;
 import com.mygdx.menus.MenuOptions;
 import com.mygdx.players.PlayerID;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class MainMenuState extends GameStateMaster {
 
     MainMenuMenu mainMenuMenu = new MainMenuMenu();
+    AssetConfiguration assetConfiguration;
 
     public MainMenuState() {
 
+        Set<TextureDefinition> textures = new HashSet<TextureDefinition>();
+        textures.add(TextureDefinition.MAIN_MENU);
+
+        this.assetConfiguration = new AssetConfiguration(textures);
     }
 
-    public void render(GameAssetsContainer gameAssetsContainer) {
-
-        super.render(gameAssetsContainer);
-
+    public void load(){
+        GameAssetsContainer.getInstance().load(assetConfiguration);
         PlayerInputManager.getInstance().setStepDelay(30);
+    }
+
+    public void render() {
+
+        super.render();
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        gameAssetsContainer.getSpriteBatch().begin();
+        GameAssetsContainer.getInstance().getSpriteBatch().begin();
 
         // draw background
-        gameAssetsContainer.getSpriteBatch().draw(
-            gameAssetsContainer.getTextures().get(TextureDefinition.MAIN_MENU),
+        GameAssetsContainer.getInstance().getSpriteBatch().draw(
+            GameAssetsContainer.getInstance().getTexture(TextureDefinition.MAIN_MENU),
                 0f, 0f, 1920, 1080
         );
 
@@ -45,19 +54,18 @@ public class MainMenuState extends GameStateMaster {
         for(MenuOptions options : mainMenuMenu.getAllText()) {
 
             if(mainMenuMenu.isCurrentlySelectedIndex(options)) {
-                gameAssetsContainer.getFont().setColor(mainMenuMenu.getSelectedColor());
+                GameAssetsContainer.getInstance().getFont().setColor(mainMenuMenu.getSelectedColor());
             }
             else {
-                gameAssetsContainer.getFont().setColor(mainMenuMenu.getNonSelectedColor());
+                GameAssetsContainer.getInstance().getFont().setColor(mainMenuMenu.getNonSelectedColor());
             }
 
-            gameAssetsContainer.getFont().draw(gameAssetsContainer.getSpriteBatch(), options.getText(), 200, y);
+            GameAssetsContainer.getInstance().getFont().draw(GameAssetsContainer.getInstance().getSpriteBatch(), options.getText(), 200, y);
             y -= 100;
         }
 
-        y = 400;
 
-        gameAssetsContainer.getSpriteBatch().end();
+        GameAssetsContainer.getInstance().getSpriteBatch().end();
 
 
         if(getPlayerInputManager().isDownPressed(PlayerID.PLAYER_1)) {
@@ -78,7 +86,7 @@ public class MainMenuState extends GameStateMaster {
 
     public GameStatesEnum nextState() {
         if(mainMenuMenu.getCurrentOption() == MenuOptions.START_GAME && getPlayerInputManager().isActionPressed(PlayerID.PLAYER_1)) {
-            return GameStatesEnum.GAME_PLAYING;
+            return GameStatesEnum.OVERWORLD;
         }
 
         return null;

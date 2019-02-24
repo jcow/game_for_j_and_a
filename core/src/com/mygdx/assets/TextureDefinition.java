@@ -1,9 +1,10 @@
-package com.mygdx.config;
+package com.mygdx.assets;
 
 public enum TextureDefinition {
 
-    SPRITE_SHEET("badlogic.jpg"),
-    MAIN_MENU("mainmenu.png");
+    MAIN_MENU("mainmenu.png"),
+    LOADING_SCREEN("loading_screen.png"),
+    OVERWORLD("overworld.png");
 
     private String path;
 

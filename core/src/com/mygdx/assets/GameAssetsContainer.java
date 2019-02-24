@@ -7,41 +7,128 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.config.TextureDefinition;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GameAssetsContainer {
+
+    private static GameAssetsContainer instance;
 
     private AssetManager assetManager;
     private SpriteBatch spriteBatch;
     private BitmapFont font;
-    private Map<TextureDefinition, Texture> textures;
+    private Texture loadingTexture;
+    private Camera camera;
 
-    Camera cam;
+    protected GameAssetsContainer() {}
 
-    public GameAssetsContainer() {
-        assetManager = new AssetManager();
-        spriteBatch = new SpriteBatch();
-        font = new BitmapFont();
-        textures = new HashMap<TextureDefinition, Texture>();
+    public static GameAssetsContainer getInstance() {
+        if(instance == null) {
+            instance = new GameAssetsContainer();
+            instance.setup();
+        }
 
-        textures.put(TextureDefinition.SPRITE_SHEET, new Texture(TextureDefinition.SPRITE_SHEET.getPath()));
-        textures.put(TextureDefinition.MAIN_MENU, new Texture(TextureDefinition.MAIN_MENU.getPath()));
-
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-
-        // Constructs a new OrthographicCamera, using the given viewport width and height
-        cam = new OrthographicCamera(w, h);
-        cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
-        cam.update();
-        spriteBatch.setProjectionMatrix(cam.combined);
+        return instance;
     }
 
-    public AssetManager getAssetManager() {
-        return assetManager;
+    protected void setup() {
+        this.assetManager = createAssetManager();
+        this.spriteBatch = createSpriteBatch();
+        this.font = this.createFont();
+        this.loadingTexture = createLoadingTexture();
+        this.camera = createCamera(getWidth(), getHeight());
+
+        setupCamera();
+        setupSpriteBatch();
+    }
+
+    public void load(AssetConfiguration assetConfiguration) {
+
+        Set<String> loadedAssets = new HashSet<String>(Arrays.asList(assetManager.getAssetNames().items));
+
+        Set<String> texturesToLoad = getAssetsToLoad(assetConfiguration.getTextures(), loadedAssets);
+        Set<String> texturesToUnload = getAssetsToUnload(assetConfiguration.getTextures(), loadedAssets);
+
+        for(String textureToUnload : texturesToUnload) {
+            Texture texture = assetManager.get(textureToUnload, Texture.class);
+            if(texture != null) {
+                texture.dispose();
+            }
+        }
+
+        for(String textureToLoad : texturesToLoad) {
+            assetManager.load(textureToLoad, Texture.class);
+        }
+
+        assetManager.finishLoading();
+    }
+
+    protected Set<String> getAssetsToLoad(Set<TextureDefinition> incomingFiles, Set<String> alreadyLoaded) {
+        Set<String> thingsToLoad = new HashSet<String>();
+        for(TextureDefinition definition : incomingFiles) {
+            String filename = definition.getPath();
+            if(filename != null && !alreadyLoaded.contains(filename)) {
+                thingsToLoad.add(filename);
+            }
+        }
+
+        return thingsToLoad;
+    }
+
+    protected Set<String> getAssetsToUnload(Set<TextureDefinition> incomingDefinitions, Set<String> alreadyLoaded) {
+
+        Set<String> incomingFiles = new HashSet<String>();
+        for(TextureDefinition textureDefinition : incomingDefinitions) {
+            incomingFiles.add(textureDefinition.getPath());
+        }
+
+        Set<String> thingsToUnload = new HashSet<String>();
+        for(String filename : alreadyLoaded) {
+            if(filename != null && !incomingFiles.contains(filename)) {
+                thingsToUnload.add(filename);
+            }
+        }
+
+        return thingsToUnload;
+    }
+
+    protected void setupSpriteBatch() {
+        spriteBatch.setProjectionMatrix(camera.combined);
+    }
+
+    protected void setupCamera() {
+        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+        camera.update();
+    }
+
+    protected SpriteBatch createSpriteBatch(){
+        return new SpriteBatch();
+    }
+
+    protected AssetManager createAssetManager(){
+        return new AssetManager();
+    }
+
+    protected BitmapFont createFont() {
+        return new BitmapFont();
+    }
+
+    protected Texture createLoadingTexture() {
+        return new Texture(TextureDefinition.LOADING_SCREEN.getPath());
+    }
+
+    protected Camera createCamera(int w, int h) {
+        return new OrthographicCamera(w, h);
+    }
+
+    protected int getWidth() {
+        return Gdx.graphics.getWidth();
+    }
+
+    protected int getHeight() {
+        return Gdx.graphics.getHeight();
     }
 
     public SpriteBatch getSpriteBatch() {
@@ -52,16 +139,18 @@ public class GameAssetsContainer {
         return font;
     }
 
-    public Map<TextureDefinition, Texture> getTextures() {
-        return textures;
+    public Texture getTexture(TextureDefinition textureDefinition) {
+        return assetManager.get(textureDefinition.getPath(), Texture.class);
+    }
+
+    public Texture getLoadingTexture(){
+        return this.loadingTexture;
     }
 
     public void dispose() {
         assetManager.dispose();
         spriteBatch.dispose();
         font.dispose();
-        for(TextureDefinition textureDefinition : textures.keySet()) {
-            textures.get(textureDefinition).dispose();
-        }
+        loadingTexture.dispose();
     }
 }
