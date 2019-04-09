@@ -1,49 +1,68 @@
 package com.mygdx.gamestates.gameplay;
 
-import com.mygdx.creators.PlayerCreator;
+import com.mygdx.assets.GameAssetsContainer;
 import com.mygdx.game.UpdateManager;
 import com.mygdx.gamestates.GameStateMaster;
 import com.mygdx.gamestates.GameStatesEnum;
-import com.mygdx.levels.LevelBuilder;
-import com.mygdx.levels.MyLevel;
-import com.mygdx.managers.PlayerInputManager;
-import com.mygdx.players.Player;
-import java.util.List;
+import com.mygdx.levels.LevelDefinitionManager;
+import com.mygdx.levels.leveldefinitions.Level1Definition;
+import com.mygdx.levels.leveldefinitions.MyLevelDefinition;
 
 public class GamePlayingState extends GameStateMaster {
 
-    UpdateManager updateManager;
+    private UpdateManager updateManager;
 
-    Player[] players;
+    MyLevelDefinition currentLevel = LevelDefinitionManager.getInstance().getLevel(Level1Definition.class);
 
-    MyLevel currentLevel;
-    List<MyLevel> levels;
+
+    // IDK if we should use this anymore
+
 
     public GamePlayingState() {
-
         updateManager = new UpdateManager();
-        PlayerCreator playerCreator = new PlayerCreator();
-        Player player1 = playerCreator.createPlayer1();
-
-        players = new Player[1];
-
-        levels = new LevelBuilder().buildLevels();
-        currentLevel = levels.get(0);
-
-        player1.getSprite().setXPos(currentLevel.getPlayerSpawn().getFirst());
-        player1.getSprite().setYPos(currentLevel.getPlayerSpawn().getSecond());
-
-        players[0] = player1;
     }
 
     public void load() {
-        PlayerInputManager.getInstance().resetStepDelay();
+
+//        // TODO - how to state which level we're on from the overworld?
+//
+//        PlayerInputManager.getInstance().resetStepDelay();
+//
+//        // load the level's needed assets
+//        GameAssetsContainer.getInstance().load(currentLevel.getAssetConfiguration());
+//
+//        MABYE NOT DO IT THIS WAY.  MAYBE HAVE EACH LEVEL AS A GAME STATE THAT YOU CHANGE TO.
+//        MAYBE HAVE THE PLAYING GAME STATE BE A GLOBAL THAT'S MODIFIED THROUGH EACH LEVEL... MAYBE.
+
+    }
+
+    public void unload() {
+        // TODO reset the level
     }
 
     @Override
     public void render() {
 
         super.render();
+
+        GameAssetsContainer.getInstance().getSpriteBatch().begin();
+
+        GameAssetsContainer.getInstance().getFont().draw(GameAssetsContainer.getInstance().getSpriteBatch(), "Sup bro", 10, 10);
+
+
+        GameAssetsContainer.getInstance().getSpriteBatch().end();
+
+//
+//        GameAssetsContainer.getInstance().getInstance().getSpriteBatch().begin();
+//
+//        Gdx.gl.glClearColor(0, 0, 0, 1);
+//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//
+//        GameAssetsContainer.getInstance().getSpriteBatch().draw(
+//            GameAssetsContainer.getInstance().getTexture(currentLevel.getBackgroundDefinition()), 0,0
+//        );
+//
+//        GameAssetsContainer.getInstance().getInstance().getSpriteBatch().end();
 
 
 
@@ -60,7 +79,7 @@ public class GamePlayingState extends GameStateMaster {
 //        gameAssetsContainer.getSpriteBatch().end();
 
         // update
-        updateManager.update(null, players);
+//        updateManager.update(null, players);
 
     }
 

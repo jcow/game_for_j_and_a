@@ -1,7 +1,7 @@
 package com.mygdx.game;
 
 import com.mygdx.collisions.CollisionManager;
-import com.mygdx.levels.MyLevel;
+import com.mygdx.levels.leveldefinitions.MyLevelDefinition;
 import com.mygdx.players.Player;
 import com.mygdx.managers.PlayerInputManager;
 
@@ -13,7 +13,7 @@ public class UpdateManager {
         collisionManager = new CollisionManager();
     }
 
-    public void update(MyLevel level, Player[] players) {
+    public void update(MyLevelDefinition level, Player[] players) {
 
 //        for(Player player : players) {
 //            collisionManager.getNewUserToWorldCollisionRectangles(

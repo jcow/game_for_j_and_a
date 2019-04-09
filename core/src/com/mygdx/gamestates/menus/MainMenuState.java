@@ -34,12 +34,13 @@ public class MainMenuState extends GameStateMaster {
         PlayerInputManager.getInstance().setStepDelay(30);
     }
 
+    public void unload() {
+
+    }
+
     public void render() {
 
         super.render();
-
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         GameAssetsContainer.getInstance().getSpriteBatch().begin();
 

@@ -1,5 +1,7 @@
 package com.mygdx.gamestates.gameplay;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.assets.AssetConfiguration;
 import com.mygdx.assets.GameAssetsContainer;
 import com.mygdx.assets.TextureDefinition;
@@ -27,10 +29,19 @@ public class OverworldState extends GameStateMaster {
         PlayerInputManager.getInstance().resetStepDelay();
     }
 
+    public void unload() {
+
+    }
+
     @Override
     public void render() {
 
+        super.render();
+
         GameAssetsContainer.getInstance().getSpriteBatch().begin();
+
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // draw background
         GameAssetsContainer.getInstance().getSpriteBatch().draw(

@@ -1,7 +1,7 @@
 package com.mygdx.gamestates;
 
 import com.mygdx.gamestates.gameplay.GamePlayingState;
-import com.mygdx.gamestates.gameplay.Level1State;
+import com.mygdx.gamestates.gameplay.gamestates.Level1State;
 import com.mygdx.gamestates.gameplay.OverworldState;
 import com.mygdx.gamestates.menus.MainMenuState;
 
