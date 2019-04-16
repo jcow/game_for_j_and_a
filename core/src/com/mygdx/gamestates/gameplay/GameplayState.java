@@ -2,6 +2,8 @@ package com.mygdx.gamestates.gameplay;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
+import com.mygdx.gamestates.gameplay.resources.sprites.Enemy;
+import com.mygdx.gamestates.gameplay.resources.creators.EnemyCreator;
 import com.mygdx.players.Player;
 
 import java.util.List;
@@ -13,22 +15,34 @@ public class GameplayState {
     char[][] rawLevel;
 
     EnemyDirectionMap enemyDirectionMap;
-    Enemy enemies; // pool
+
 
     PlayerSpawn player1Spawn = new PlayerSpawn();
     PlayerSpawn player2Spawn = new PlayerSpawn();
 
     Array<Tower> towers = new Array<Tower>();
+    Array<Enemy> enemies = new Array<Enemy>();
 
     LevelTiles[][] levelTiles;
 
     LevelGoal levelGoal;
 
-    public void update() {
+    public void load(char[][] rawLevel) {
+
+        this.rawLevel = rawLevel;
+
+        this.enemies.add(EnemyCreator.getInstance().create(10, 10));
+
 
     }
 
-    public void draw() {
+    public void update() {
+
+        // TODO iterator memory... :|
+        for(int i = 0; i < enemies.size; i++) {
+            enemies.get(i).setX(enemies.get(i).getX() + 1);
+            enemies.get(i).setY(enemies.get(i).getY() + 1);
+        }
 
     }
 
@@ -55,22 +69,19 @@ public class GameplayState {
 
      */
 
-    //    EnemySpawn
-    char[][] enemyDirections;
-
-//    Tower[] towers;
-
-
-
     Player player1;
     Player player2;
 
-    public void setRawLevel(char[][] rawLevel) {
-        this.rawLevel = rawLevel;
+    public char[][] getRawLevel() {
+        return this.rawLevel;
     }
 
     public void reset() {
         // TODO
+    }
+
+    public Array<Enemy> getEnemies(){
+        return enemies;
     }
 
     public void build() {
@@ -126,14 +137,17 @@ class TowerCreator {
     public Tower create(int x, int y) {
         Tower tower = towerPool.obtain();
 
+        // set attributes
+
         return tower;
     }
 
 }
 
-class Enemy {
 
-}
+
+
+
 
 class Towers {
 

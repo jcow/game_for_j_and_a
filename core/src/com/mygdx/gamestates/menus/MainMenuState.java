@@ -1,7 +1,6 @@
 package com.mygdx.gamestates.menus;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.assets.AssetConfiguration;
 import com.mygdx.assets.GameAssetsContainer;
 import com.mygdx.assets.TextureDefinition;

@@ -6,7 +6,8 @@ public enum TextureDefinition {
     LOADING_SCREEN("loading_screen.png"),
     OVERWORLD("overworld.png"),
 
-    LEVEL_MY_TEST_LEVEL("levels/level-test.png");
+    LEVEL_MY_TEST_LEVEL("levels/level-test.png"),
+    LEVEL_TILE("tile.png");
 
 
     private String path;

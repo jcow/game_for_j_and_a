@@ -1,6 +1,5 @@
 package com.mygdx.gamestates;
 
-import com.mygdx.gamestates.gameplay.GamePlayingState;
 import com.mygdx.gamestates.gameplay.gamestates.Level1State;
 import com.mygdx.gamestates.gameplay.OverworldState;
 import com.mygdx.gamestates.menus.MainMenuState;
@@ -9,7 +8,6 @@ public enum GameStatesEnum {
 
     MAIN_MENU(new MainMenuState()),
     OVERWORLD(new OverworldState()),
-    GAME_PLAYING(new GamePlayingState()),
 
     LEVEL_1(new Level1State());
 

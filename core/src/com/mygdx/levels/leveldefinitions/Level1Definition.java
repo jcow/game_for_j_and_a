@@ -14,6 +14,7 @@ public class Level1Definition extends MyLevelDefinition {
 
         this.assetConfiguration = new AssetConfiguration(new HashSet<TextureDefinition>(){{
             add(TextureDefinition.LEVEL_MY_TEST_LEVEL);
+            add(TextureDefinition.LEVEL_TILE);
         }});
 
     }

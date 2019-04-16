@@ -25,6 +25,10 @@ public abstract class MyLevelDefinition {
         return backgroundDefinition;
     }
 
+    public char[][] getRawLevel(){
+        return rawLevel;
+    }
+
     public void setRawLevel(char[][] rawLevel) {
         this.rawLevel = rawLevel;
     }
